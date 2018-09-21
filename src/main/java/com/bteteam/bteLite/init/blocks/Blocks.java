@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 
 public class Blocks implements IEntryHolder<Block>{
 
-	private static final Blocks INSTANCE = new Blocks();
+	public static final Blocks INSTANCE = new Blocks();
 	
 	/**
 	 * hidden Constructor, use {@code IEntryHolder.getInstance()}
@@ -22,5 +22,6 @@ public class Blocks implements IEntryHolder<Block>{
 	public IEntryHolder<Block> getInstance() {
 		return INSTANCE;
 	}
+	
 
 }

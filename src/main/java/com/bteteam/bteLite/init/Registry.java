@@ -7,7 +7,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Registry {
 	
-	public <T extends IEntry, E extends IForgeRegistryEntry<E>> void register(IEntryHolder<E> holder, RegistryEvent.Register<E> event) {
+	public static <T extends IEntry, E extends IForgeRegistryEntry<E>> void register(IEntryHolder<E> holder, RegistryEvent.Register<E> event) {
 		Field[] fields = holder.getClass().getFields();
 		for(Field field : fields) {
 			if(field.getType() == holder.getEntryType()) {

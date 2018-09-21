@@ -7,8 +7,7 @@ import com.bteteam.bteLite.init.items.obj.ItemBase;
 import net.minecraft.item.Item;
 
 public class Items implements IEntryHolder<Item>{
-
-	private static final Items INSTANCE = new Items();
+	public static final Items INSTANCE = new Items();
 
 	/**
 	 * hidden Constructor, use {@code IEntryHolder.getInstance()}
