@@ -7,52 +7,66 @@ import com.bteteam.bteLite.proxy.common.ISide;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
+
 
 @Mod(modid = Main.MODID, version = "1.0.0lite")
 public class Main {
+	public Main() {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
 	public static final String MODID = "bte";
-	public static final String CLIENT_PROXY = "com.tebreca.bteteam.bteLite.proxy.client.Client";
-	public static final String SERVER_PROXY = "com.tebreca.bteteam.bteLite.proxy.server.Server";
+	public static final String CLIENT_PROXY = "com.bteteam.bteLite.proxy.client.Client";
+	public static final String SERVER_PROXY = "com.bteteam.bteLite.proxy.server.Server";
 
 	@SidedProxy(modId = Main.MODID, clientSide = CLIENT_PROXY, serverSide = SERVER_PROXY)
 	public static ISide proxy;
 
-	@SubscribeEvent
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent preInitializationEvent) {
-		
+
 	}
 
-	@SubscribeEvent
+	@EventHandler
 	public void init(FMLInitializationEvent initializationEvent) {
 		proxy.registerTileEntities();
 	}
 
-	@SubscribeEvent
+	@EventHandler
 	public void postInit(FMLPostInitializationEvent postInitializationEvent) {
 
 	}
 
 	@SubscribeEvent
-	public void registerBlocks(RegistryEvent.Register<Block> event) {
+	public void onBlockRegister(RegistryEvent.Register<Block> event) {
 		Registry.register(Blocks.INSTANCE.getInstance(), event);
 	}
 
 	@SubscribeEvent
-	public void registerItems(RegistryEvent.Register<Item> event) {
+	public void onItemRegister(RegistryEvent.Register<Item> event) {
 		Registry.register(Items.INSTANCE.getInstance(), event);
+		IForgeRegistry registry = event.getRegistry();
+		for(ItemBlock b : Registry.getItemBlocks()) {
+			b.setRegistryName(new ResourceLocation(Main.MODID, b.getBlock().getUnlocalizedName()));
+			registry.register((Item) b);
+		}
 	}
 
 	@SubscribeEvent
-	public void registerModels(ModelRegistryEvent event) {
+	public void onModelRegister(ModelRegistryEvent event) {
 		proxy.registerModels();
 	}
 

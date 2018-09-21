@@ -1,8 +1,11 @@
 package com.bteteam.bteLite.init.blocks;
 
+import com.bteteam.bteLite.init.AddItemBlock;
 import com.bteteam.bteLite.init.IEntryHolder;
+import com.bteteam.bteLite.init.blocks.obj.BlockBase;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 
 public class Blocks implements IEntryHolder<Block>{
 
@@ -15,7 +18,7 @@ public class Blocks implements IEntryHolder<Block>{
 	
 	@Override
 	public Class<? extends Block> getEntryType() {
-		return null;
+		return BlockBase.class;
 	}
 
 	@Override
@@ -23,5 +26,6 @@ public class Blocks implements IEntryHolder<Block>{
 		return INSTANCE;
 	}
 	
-
+	@AddItemBlock(value = true)
+	public BlockBase testblock = new BlockBase(Material.ROCK);
 }
