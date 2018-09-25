@@ -34,25 +34,4 @@ public class Registry {
 		}
 	}
 	
-	public static ItemBlock[] getItemBlocks() {
-		IEntryHolder<Block> entryHolder = Blocks.INSTANCE.getInstance();
-		ArrayList<ItemBlock> list = new ArrayList<>();
-		Field[] fields = entryHolder.getClass().getFields();
-		for(Field field : fields) {
-			if(field.getType() == entryHolder.getEntryType()) {
-				if(field.isAnnotationPresent(AddItemBlock.class)) {
-					if(field.getAnnotation(AddItemBlock.class).value()) {
-						try {
-							list.add(new ItemBlock((Block) field.get(entryHolder)));
-						} catch (IllegalArgumentException e) {
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		}
-		return list.toArray(new ItemBlock[0]);
-	}
 }

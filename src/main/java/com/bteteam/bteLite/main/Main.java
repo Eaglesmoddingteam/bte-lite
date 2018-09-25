@@ -52,14 +52,14 @@ public class Main {
 
 	@SubscribeEvent
 	public void onBlockRegister(RegistryEvent.Register<Block> event) {
-		Registry.register(Blocks.INSTANCE.getInstance(), event);
+		Registry.register(Blocks.INSTANCE, event);
 	}
 
 	@SubscribeEvent
 	public void onItemRegister(RegistryEvent.Register<Item> event) {
-		Registry.register(Items.INSTANCE.getInstance(), event);
+		Registry.register(Items.INSTANCE, event);
 		IForgeRegistry registry = event.getRegistry();
-		for(ItemBlock b : Registry.getItemBlocks()) {
+		for(ItemBlock b : Blocks.INSTANCE.getItemBlocks()) {
 			b.setRegistryName(new ResourceLocation(Main.MODID, b.getBlock().getUnlocalizedName()));
 			registry.register((Item) b);
 		}
