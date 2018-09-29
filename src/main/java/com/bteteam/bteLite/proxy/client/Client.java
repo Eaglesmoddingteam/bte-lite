@@ -1,12 +1,29 @@
 package com.bteteam.bteLite.proxy.client;
 
+import java.util.List;
+
+import com.bteteam.bteLite.init.Registry;
+import com.bteteam.bteLite.init.blocks.Blocks;
+import com.bteteam.bteLite.init.items.Items;
 import com.bteteam.bteLite.proxy.common.ISide;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 
 public class Client implements ISide {
 
 	@Override
 	public void registerModels() {
-
+		List<Item> items = Registry.getValues(Items.INSTANCE);
+		for(Item i : items) {
+			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
+		}
+		List<Block> blocks = Registry.getValues(Blocks.INSTANCE);
+		for(Block b : blocks) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new  ModelResourceLocation(b.getRegistryName(), "inventory"));
+		}
 	}
 
 	@Override
