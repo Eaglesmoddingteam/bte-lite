@@ -3,14 +3,15 @@ package com.bteteam.bteLite.init.items.obj;
 import com.bteteam.bteLite.init.IEntry;
 import com.bteteam.bteLite.main.Main;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 
 public class ItemBase extends Item implements IEntry{
-
-	public ItemBase() {
-		
+	public ItemBase(CreativeTabs tab) {
+		super();
+		setCreativeTab(tab);
 	}
 
 	@Deprecated
