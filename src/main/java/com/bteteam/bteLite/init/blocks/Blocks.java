@@ -31,7 +31,6 @@ public class Blocks implements IEntryHolder<Block>{
 		return INSTANCE;
 	}
 	
-	public BlockBase growth_gen = new BlockBase(Material.ROCK);
 	
 	public ItemBlock[] getItemBlocks() {
 		Field[] fields = this.getClass().getFields();

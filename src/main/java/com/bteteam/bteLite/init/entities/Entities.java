@@ -16,7 +16,7 @@ public class Entities implements IEntryHolder<Entity>{
 	
 	@Override
 	public Class<? extends Entity> getEntryType() {
-		return null;
+		return Entity.class;
 	}
 
 	@Override

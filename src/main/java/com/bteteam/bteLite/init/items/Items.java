@@ -9,14 +9,15 @@ import static com.bteteam.bteLite.main.CTabs.*;
 
 import net.minecraft.item.Item;
 
-public class Items implements IEntryHolder<Item>{
+public class Items implements IEntryHolder<Item> {
 	public static final Items INSTANCE = new Items();
 
 	/**
 	 * hidden Constructor, use {@code IEntryHolder.getInstance()}
 	 */
-	private Items() {}
-	
+	private Items() {
+	}
+
 	@Override
 	public IEntryHolder<Item> getInstance() {
 		return INSTANCE;
@@ -26,7 +27,7 @@ public class Items implements IEntryHolder<Item>{
 	public Class<? extends Item> getEntryType() {
 		return ItemBase.class;
 	}
-	
+
 	public ItemBase picker_ant = new ItemBase(bugstab);
 	public ItemBase queen_ant = new ItemBase(bugstab);
 	public ItemBase worker_ant = new ItemBase(bugstab);
@@ -50,4 +51,5 @@ public class Items implements IEntryHolder<Item>{
 	public ItemBase silkworm = new ItemBase(bugstab);
 	public ItemBase wasp = new ItemBase(bugstab);
 	public ItemBase worm = new ItemBase(bugstab);
+
 }

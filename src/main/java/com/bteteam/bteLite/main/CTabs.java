@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 public class CTabs {
 
 	public static final CreativeTabs bugstab = new CreativeTabs("bugstab") {
-		
+
 		@Override
 		public ItemStack getTabIconItem() {
 			return new ItemStack(Items.INSTANCE.bee);
