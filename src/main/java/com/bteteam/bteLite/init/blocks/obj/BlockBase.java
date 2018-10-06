@@ -15,6 +15,7 @@ public class BlockBase extends Block implements IEntry {
 
 	public BlockBase(Material materialIn) {
 		super(materialIn);
+		init();
 	}
 
 	@Override
@@ -30,6 +31,10 @@ public class BlockBase extends Block implements IEntry {
 
 	@Override
 	public void onRegistry(Register<?> registry) {
+		
+	}
+	
+	public void init() {
 		
 	}
 
