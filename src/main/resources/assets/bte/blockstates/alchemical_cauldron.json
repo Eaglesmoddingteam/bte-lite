@@ -4,9 +4,6 @@
         "model": "bte:cauldron"
     },
     "variants": {
-        "normal": [{}],
-        "inventory": [{
-            "parent":"bte:blocks/alchemical_cauldron"
-        }]
+        "normal": [{}]
     }
 }
