@@ -2,6 +2,7 @@ package com.bteteam.bteLite.init.blocks.obj;
 
 import com.bteteam.bteLite.init.IEntry;
 import com.bteteam.bteLite.main.Main;
+import static com.bteteam.bteLite.main.CTabs.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,10 +17,13 @@ public class BlockBase extends Block implements IEntry {
 	public BlockBase(Material materialIn) {
 		super(materialIn);
 		init();
+		setCreativeTab(blockstab);
 	}
 
+	@Deprecated
 	@Override
 	public void prepare() {
+		throw new IllegalAccessError("You shouldn't use this method!! Use IEntry::prepare(byte... info)");
 	}
 	
 	@Override

@@ -1,4 +1,5 @@
 itemGroup.bugstab=Back to Eco Bugs
+itemGroup.blockstab=Back to Eco Blocks
 item.picker_ant.name=Ant Picker
 item.queen_ant.name=Ant Queen
 item.worker_ant.name=Ant Worker
@@ -29,3 +30,4 @@ tile.ant_farm.name=Ant Farm
 tile.amethyst_ore.name=Amethyst ore
 tile.amethyst_block.name=Amethyst block
 tile.alchemical_cauldron.name=Alchemical Cauldron
+tile.agawa.name=Agawa
