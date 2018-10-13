@@ -132,100 +132,40 @@ public class Blocks implements IEntryHolder<Block> {
 
 	public static AxisAlignedBB PLANTS_HITBOX = new AxisAlignedBB(0, 0, 0, 1, 0.8, 1);
 
-	public static Block agawa = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block agawa = PlantBase.withAABB(PLANTS_HITBOX);
 
-	public static Block aqumius = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block aqumius = PlantBase.withAABB(PLANTS_HITBOX);;
 
-	public static Block araucaria = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block araucaria = PlantBase.withAABB(PLANTS_HITBOX);
 
 	public static Block small_cactus = new PlantBase();
-	
+
 	public static Block coral = new PlantBase();
 
-	public static Block curcuma = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block curcuma = PlantBase.withAABB(PLANTS_HITBOX);
 
-	public static Block dragon_lily = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block dragon_lily = PlantBase.withAABB(PLANTS_HITBOX);
 
-	public static Block ender_bloom = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block ender_bloom = PlantBase.withAABB(PLANTS_HITBOX);
 
-	public static Block ender_rose = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block ender_rose = PlantBase.withAABB(PLANTS_HITBOX);
 
-	public static Block endregor_mudroot = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+	public static Block endregor_mudroot = PlantBase.withAABB(PLANTS_HITBOX);
 
 	public static Block flycatcher = new PlantBase();
 
 	public static Block horsetail_plant = new PlantBase();
 
 	public static Block lovage = new PlantBase();
-	
-	public static Block phoenix_flower = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX.grow(-0.1, 0, -0.1);
-		};
-	};
-	
-	public static Block pineapple = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
-	
-	public static Block seaweed = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
-	
+
+	public static Block phoenix_flower = PlantBase.withAABB(PLANTS_HITBOX);
+
+	public static Block pineapple = PlantBase.withAABB(PLANTS_HITBOX);
+
+	public static Block seaweed = PlantBase.withAABB(PLANTS_HITBOX);
+
 	public static Block shamrock = new PlantBase();
-	
-	public static Block tea_plant = new PlantBase() {
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source,
-				BlockPos pos) {
-			return PLANTS_HITBOX;
-		};
-	};
+
+	public static Block tea_plant = PlantBase.withAABB(PLANTS_HITBOX);
 
 }

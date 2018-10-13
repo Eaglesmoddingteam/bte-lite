@@ -5,7 +5,11 @@ import com.bteteam.bteLite.main.Main;
 import static com.bteteam.bteLite.main.CTabs.*;
 
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.event.RegistryEvent.Register;
 
 public class PlantBase extends BlockBush implements IEntry {
@@ -36,6 +40,15 @@ public class PlantBase extends BlockBush implements IEntry {
 	
 	public void init() {
 		
+	}
+	
+	public static PlantBase withAABB(AxisAlignedBB axisAlignedBB) {
+		return new PlantBase() {
+			@Override
+			public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+				return axisAlignedBB;
+			}
+		};
 	}
 
 }
