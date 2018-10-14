@@ -8,6 +8,7 @@ import com.bteteam.bteLite.init.IEntryHolder;
 import com.bteteam.bteLite.init.NoItemBlock;
 import com.bteteam.bteLite.init.blocks.obj.BlockBase;
 import com.bteteam.bteLite.init.blocks.obj.PlantBase;
+import com.bteteam.bteLite.init.blocks.obj.machines.BlockAlchemicalCauldron;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -109,26 +110,7 @@ public class Blocks implements IEntryHolder<Block> {
 		};
 	};
 
-	public static Block alchemical_cauldron = new BlockBase(Material.IRON) {
-		public void init() {
-			setSoundType(SoundType.METAL);
-			setHardness(3.0f);
-			setHarvestLevel("pickaxe", 2);
-		};
-
-		public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos,
-				EnumFacing side) {
-			return true;
-		}
-
-		public boolean isOpaqueCube(IBlockState state) {
-			return false;
-		}
-
-		public boolean isFullCube(IBlockState state) {
-			return false;
-		}
-	};
+	public static Block alchemical_cauldron = new BlockAlchemicalCauldron();
 
 	public static AxisAlignedBB PLANTS_HITBOX = new AxisAlignedBB(0, 0, 0, 1, 0.8, 1);
 

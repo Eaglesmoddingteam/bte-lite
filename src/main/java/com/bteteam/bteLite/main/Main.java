@@ -45,6 +45,7 @@ public class Main {
 
 	@EventHandler
 	public void init(FMLInitializationEvent initializationEvent) {
+		System.out.println("initializing");
 		proxy.registerTileEntities();
 	}
 
