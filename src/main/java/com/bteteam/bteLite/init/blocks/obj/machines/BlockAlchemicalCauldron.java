@@ -52,16 +52,16 @@ public class BlockAlchemicalCauldron extends BlockBase {
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			if (!playerIn.isSneaking()) {
-				if (playerIn.getHeldItem(hand).getItem() == Items.BUCKET && state.getValue(HAS_WATER)) {
-					playerIn.getHeldItem(hand).shrink(1);
+				if (playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.BUCKET && state.getValue(HAS_WATER)) {
+					playerIn.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
 					if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET))) {
 						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5,
 								new ItemStack(Items.WATER_BUCKET));
 					}
 					worldIn.setBlockState(pos, state.withProperty(HAS_WATER, false));
 					return true;
-				} else if (playerIn.getHeldItem(hand).getItem() == Items.WATER_BUCKET && !state.getValue(HAS_WATER)) {
-					playerIn.getHeldItem(hand).shrink(1);
+				} else if (playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.WATER_BUCKET && !state.getValue(HAS_WATER)) {
+					playerIn.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
 					if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
 						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5,
 								new ItemStack(Items.BUCKET));
@@ -69,10 +69,11 @@ public class BlockAlchemicalCauldron extends BlockBase {
 					worldIn.setBlockState(pos, state.withProperty(HAS_WATER, true));
 					return true;
 				} else {
-					ItemStack stack = playerIn.getHeldItem(hand);
+					ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 					TileAlchemicalCauldron tile = (TileAlchemicalCauldron) worldIn.getTileEntity(pos);
 					if (!stack.isEmpty()) {
 						tile.acceptItem(stack);
+					stack.shrink(1);
 						return true;
 					} else {
 						ItemStack extracted = tile.remove();
@@ -85,7 +86,7 @@ public class BlockAlchemicalCauldron extends BlockBase {
 				}
 			} else {
 				TileAlchemicalCauldron tile = (TileAlchemicalCauldron) worldIn.getTileEntity(pos);
-				if (playerIn.getHeldItem(hand).isEmpty()) {
+				if (playerIn.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
 					List<ItemStack> todrop = tile.extractAll();
 					for (ItemStack i : todrop) {
 						if (!playerIn.inventory.addItemStackToInventory(i)) {
@@ -93,7 +94,7 @@ public class BlockAlchemicalCauldron extends BlockBase {
 						}
 					}
 				} else {
-					ItemStack todrop = tile.removeOfType(playerIn.getHeldItem(hand).getItem());
+					ItemStack todrop = tile.removeOfType(playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem());
 					if (!playerIn.inventory.addItemStackToInventory(todrop)) {
 						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, todrop);
 					}
@@ -101,7 +102,7 @@ public class BlockAlchemicalCauldron extends BlockBase {
 				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public boolean isFullCube(IBlockState state) {

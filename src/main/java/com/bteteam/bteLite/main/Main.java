@@ -8,6 +8,7 @@ import com.bteteam.bteLite.init.blocks.trees.ITree;
 import com.bteteam.bteLite.init.blocks.trees.Trees;
 import com.bteteam.bteLite.init.items.Items;
 import com.bteteam.bteLite.proxy.common.ISide;
+import com.bteteam.bteLite.proxy.common.message.MessageUpdateTE;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -23,6 +24,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod(modid = Main.MODID, version = "1.0.0lite")
@@ -34,13 +38,16 @@ public class Main {
 	public static final String MODID = "bte";
 	public static final String CLIENT_PROXY = "com.bteteam.bteLite.proxy.client.Client";
 	public static final String SERVER_PROXY = "com.bteteam.bteLite.proxy.server.Server";
+	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+
 
 	@SidedProxy(modId = Main.MODID, clientSide = CLIENT_PROXY, serverSide = SERVER_PROXY)
 	public static ISide proxy;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent preInitializationEvent) {
-
+		proxy.registerRenders();
+		NETWORK.registerMessage(MessageUpdateTE.HandleMessageUpdateTE.class, MessageUpdateTE.class, 0, Side.CLIENT);
 	}
 
 	@EventHandler

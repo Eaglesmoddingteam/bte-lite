@@ -7,4 +7,6 @@ public interface ISide {
 	public void registerTileEntities();
 	
 	public void openGUI();
+	
+	public void registerRenders();
 }

@@ -25,4 +25,10 @@ public class Server implements ISide {
 
 	}
 
+	@Override
+	public void registerRenders() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

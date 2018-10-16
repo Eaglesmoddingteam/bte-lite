@@ -7,6 +7,7 @@ import java.util.List;
 import com.bteteam.bteLite.init.Registry;
 import com.bteteam.bteLite.init.blocks.Blocks;
 import com.bteteam.bteLite.init.blocks.obj.machines.tile.TileAlchemicalCauldron;
+import com.bteteam.bteLite.init.blocks.obj.machines.tile.render.RenderTileAC;
 import com.bteteam.bteLite.init.items.Items;
 import com.bteteam.bteLite.main.Main;
 import com.bteteam.bteLite.proxy.common.ISide;
@@ -16,6 +17,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class Client implements ISide {
 
@@ -39,6 +41,12 @@ public class Client implements ISide {
 	@Override
 	public void openGUI() {
 
+	}
+
+	@Override
+	public void registerRenders() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAlchemicalCauldron.class, new RenderTileAC());
+		
 	}
 
 }
