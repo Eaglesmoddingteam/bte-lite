@@ -15,6 +15,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -150,4 +151,12 @@ public class Blocks implements IEntryHolder<Block> {
 
 	public static Block tea_plant = PlantBase.withAABB(PLANTS_HITBOX);
 
+	public static Block beetle_nest = new BlockBase(Material.WOOD) {
+		public void init() {
+			setSoundType(SoundType.WOOD);
+			setHardness(2.0f);
+			setHarvestLevel("axe", 0);
+		};
+	};
+	
 }

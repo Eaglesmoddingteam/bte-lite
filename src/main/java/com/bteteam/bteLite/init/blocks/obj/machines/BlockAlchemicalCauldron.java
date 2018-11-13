@@ -6,15 +6,23 @@ import java.util.List;
 
 import com.bteteam.bteLite.init.blocks.obj.BlockBase;
 import com.bteteam.bteLite.init.blocks.obj.machines.tile.TileAlchemicalCauldron;
+import com.bteteam.bteLite.main.Main;
+import com.bteteam.bteLite.proxy.common.message.MessageRequestUpdate;
+import com.bteteam.bteLite.proxy.common.message.MessageUpdateTE;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -24,7 +32,7 @@ import net.minecraft.world.World;
 
 public class BlockAlchemicalCauldron extends BlockBase {
 
-	public PropertyBool HAS_WATER;
+	public static PropertyBool HAS_WATER;
 
 	public BlockAlchemicalCauldron() {
 		super(Material.IRON);
@@ -45,36 +53,45 @@ public class BlockAlchemicalCauldron extends BlockBase {
 		return false;
 	}
 
-	
-	//TODO: test item storage and item insertion in survival inventory
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote) {
-			if (!playerIn.isSneaking()) {
-				if (playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.BUCKET && state.getValue(HAS_WATER)) {
+
+		if (!playerIn.isSneaking()) {
+			if (playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.BUCKET && state.getValue(HAS_WATER)) {
+				if (!worldIn.isRemote) {
 					playerIn.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
 					if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET))) {
 						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5,
 								new ItemStack(Items.WATER_BUCKET));
 					}
-					worldIn.setBlockState(pos, state.withProperty(HAS_WATER, false));
-					return true;
-				} else if (playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.WATER_BUCKET && !state.getValue(HAS_WATER)) {
+				}
+				NBTTagCompound compound = new NBTTagCompound();
+				compound = worldIn.getTileEntity(pos).writeToNBT(compound);
+				worldIn.setBlockState(pos, state.withProperty(HAS_WATER, false));
+				worldIn.getTileEntity(pos).readFromNBT(compound);
+
+			} else if (playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.WATER_BUCKET
+					&& !state.getValue(HAS_WATER)) {
+				if (!worldIn.isRemote) {
 					playerIn.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
 					if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
 						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5,
 								new ItemStack(Items.BUCKET));
 					}
-					worldIn.setBlockState(pos, state.withProperty(HAS_WATER, true));
-					return true;
-				} else {
+				}
+				NBTTagCompound compound = new NBTTagCompound();
+				compound = worldIn.getTileEntity(pos).writeToNBT(compound);
+				worldIn.setBlockState(pos, state.withProperty(HAS_WATER, true));
+				worldIn.getTileEntity(pos).readFromNBT(compound);
+
+			} else {
+				if (!worldIn.isRemote) {
 					ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 					TileAlchemicalCauldron tile = (TileAlchemicalCauldron) worldIn.getTileEntity(pos);
 					if (!stack.isEmpty()) {
 						tile.acceptItem(stack);
-					stack.shrink(1);
-						return true;
+						stack.shrink(1);
 					} else {
 						ItemStack extracted = tile.remove();
 						if (!extracted.isEmpty())
@@ -84,24 +101,19 @@ public class BlockAlchemicalCauldron extends BlockBase {
 							}
 					}
 				}
-			} else {
+			}
+		} else {
+			if (!worldIn.isRemote) {
 				TileAlchemicalCauldron tile = (TileAlchemicalCauldron) worldIn.getTileEntity(pos);
-				if (playerIn.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
-					List<ItemStack> todrop = tile.extractAll();
-					for (ItemStack i : todrop) {
-						if (!playerIn.inventory.addItemStackToInventory(i)) {
-							spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, i);
-						}
-					}
-				} else {
-					ItemStack todrop = tile.removeOfType(playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem());
-					if (!playerIn.inventory.addItemStackToInventory(todrop)) {
-						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, todrop);
+				List<ItemStack> todrop = tile.extractAll();
+				for (ItemStack i : todrop) {
+					if (!playerIn.inventory.addItemStackToInventory(i)) {
+						spawnItemStack(worldIn, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, i);
 					}
 				}
-				return true;
 			}
 		}
+		worldIn.getTileEntity(pos).markDirty();
 		return true;
 	}
 
@@ -136,5 +148,4 @@ public class BlockAlchemicalCauldron extends BlockBase {
 	public IBlockState getStateFromMeta(int meta) {
 		return blockState.getBaseState().withProperty(HAS_WATER, meta == 1);
 	}
-
 }

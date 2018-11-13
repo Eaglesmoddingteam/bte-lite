@@ -30,23 +30,20 @@ public class RenderTileAC extends TileEntitySpecialRenderer<TileAlchemicalCauldr
 			RenderHelper.enableStandardItemLighting();
 			GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 			GlStateManager.pushMatrix();
-			if (te.items.size() == 1) {
-				GlStateManager.translate(x + 0.5 , y+ 1.25,  z + 0.5);
-				IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(te.items.get(0), te.getWorld(), null);
-				model = ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.GROUND, false);
+			double current = 1.25;
+			int currentIndex = -1;
+			for (ItemStack item : te.items) {
+				currentIndex++;
+				GlStateManager.popMatrix();
+				GlStateManager.pushMatrix();
+				GlStateManager.translate(x + 0.5, y + Math.max((current - ((te.ticksboiling + (te.ticksboiling > 0 ? partialTicks *0.1 : 0)) * 0.01)), 0.7  + currentIndex * 0.1), z + 0.5);
+				GlStateManager.rotate((te.getWorld().getTotalWorldTime() + partialTicks) * 4, 0, 1, 0);
+				IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(item);
+				model = ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.GROUND,
+						false);
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				Minecraft.getMinecraft().getRenderItem().renderItem(te.items.get(0), model);
-			} else {
-				double radians = ((360 / te.items.size()) / 180) * Math.PI;
-				double current = radians;
-				for(ItemStack item : te.items) {
-					GlStateManager.translate(x + Math.sin(current) * 4, y + 1.25, z + Math.cos(current) * 4);
-					IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(item, te.getWorld(), null);
-					model = ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.GROUND, false);
-					Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-					Minecraft.getMinecraft().getRenderItem().renderItem(item, model);
-					current += radians;
-				}
+				Minecraft.getMinecraft().getRenderItem().renderItem(item, model);
+				current += 0.5;
 			}
 			GlStateManager.popMatrix();
 			GlStateManager.disableRescaleNormal();

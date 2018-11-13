@@ -2,11 +2,13 @@ package com.bteteam.bteLite.proxy.server;
 
 import com.bteteam.bteLite.init.blocks.obj.machines.tile.TileAlchemicalCauldron;
 import com.bteteam.bteLite.main.Main;
+import com.bteteam.bteLite.proxy.common.IFunction;
 import com.bteteam.bteLite.proxy.common.ISide;
 import static net.minecraftforge.fml.common.registry.GameRegistry.registerTileEntity;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class Server implements ISide {
 
@@ -27,8 +29,14 @@ public class Server implements ISide {
 
 	@Override
 	public void registerRenders() {
-		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void executeSided(IFunction func, Side side, Object... args) {
+		if(side.isServer()) {
+			func.exec(args);
+		}
 	}
 
 }
