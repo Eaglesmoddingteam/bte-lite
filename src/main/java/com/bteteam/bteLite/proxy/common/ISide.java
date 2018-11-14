@@ -18,5 +18,6 @@ public interface ISide {
 	public default void registerSprites(TextureStitchEvent event) {};
 	
 	public void executeSided(IFunction func, Side side, Object... args);
-	
+
+	public void executeSided(IFunction.NoArgs func, Side side);
 }

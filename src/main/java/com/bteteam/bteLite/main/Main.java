@@ -36,19 +36,19 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod(modid = Main.MODID, version = "1.0.0lite")
 public class Main {
-	
+
 	public Main() {
-		MinecraftForge.EVENT_BUS.register(INSTANCE);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	public static final String MODID = "bte";
 	public static final String CLIENT_PROXY = "com.bteteam.bteLite.proxy.client.Client";
 	public static final String SERVER_PROXY = "com.bteteam.bteLite.proxy.server.Server";
-	
+
 	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 
 	@Mod.Instance
-	public static Main INSTANCE;	
+	public static Main INSTANCE;
 
 	@SidedProxy(modId = Main.MODID, clientSide = CLIENT_PROXY, serverSide = SERVER_PROXY)
 	public static ISide proxy;
@@ -59,7 +59,8 @@ public class Main {
 		Entities.Register();
 		NETWORK.registerMessage(MessageUpdateTE.HandleMessageUpdateTE.class, MessageUpdateTE.class, 0, Side.CLIENT);
 		NETWORK.registerMessage(MessageRequestUpdate.Handler.class, MessageRequestUpdate.class, 1, Side.SERVER);
-		NETWORK.registerMessage(MessagePlayParticleEffect.HandleMSG.class, MessagePlayParticleEffect.class, 2, Side.CLIENT);
+		NETWORK.registerMessage(MessagePlayParticleEffect.HandleMSG.class, MessagePlayParticleEffect.class, 2,
+				Side.CLIENT);
 	}
 
 	@EventHandler
@@ -98,7 +99,7 @@ public class Main {
 	public void onModelRegister(ModelRegistryEvent event) {
 		proxy.registerModels();
 	}
-	
+
 	@SubscribeEvent
 	public void getSprites(TextureStitchEvent event) {
 		proxy.registerSprites(event);

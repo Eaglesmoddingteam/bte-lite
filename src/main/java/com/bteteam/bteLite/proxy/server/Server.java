@@ -4,6 +4,8 @@ import com.bteteam.bteLite.init.blocks.obj.machines.tile.TileAlchemicalCauldron;
 import com.bteteam.bteLite.main.Main;
 import com.bteteam.bteLite.proxy.common.IFunction;
 import com.bteteam.bteLite.proxy.common.ISide;
+import com.bteteam.bteLite.proxy.common.IFunction.NoArgs;
+
 import static net.minecraftforge.fml.common.registry.GameRegistry.registerTileEntity;
 
 import net.minecraft.util.ResourceLocation;
@@ -39,4 +41,10 @@ public class Server implements ISide {
 		}
 	}
 
+	@Override
+	public void executeSided(NoArgs func, Side side) {
+		if(side.isServer()) {
+			func.exec();
+		}
+	}
 }

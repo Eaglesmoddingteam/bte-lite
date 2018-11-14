@@ -48,7 +48,7 @@ public abstract class EntityEntry<T extends Entity> implements IEntry {
 
 		public IRenderFactory<T> getRenderFactory();
 
-		public default void registerModel(Object... args) {
+		public default void registerModel() {
 			RenderingRegistry.registerEntityRenderingHandler(getEntityClass(), getRenderFactory());
 		}
 	}

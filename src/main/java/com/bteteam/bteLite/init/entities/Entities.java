@@ -2,9 +2,11 @@ package com.bteteam.bteLite.init.entities;
 
 import java.util.List;
 
+import com.bteteam.bteLite.client.models.InfernalBlacksmith;
 import com.bteteam.bteLite.init.IEntry;
 import com.bteteam.bteLite.init.IEntryHolder;
 import com.bteteam.bteLite.init.Registry;
+import com.bteteam.bteLite.init.entities.obj.EntityBlackSmith;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -29,9 +31,12 @@ public class Entities implements IEntryHolder<EntityEntry> {
 	public IEntryHolder<EntityEntry> getInstance() {
 		return INSTANCE;
 	}
+	
+	public static EntityEntry entry = new EntityBlackSmith.Registry();
 
 	public static void Register() {
 		List<EntityEntry> entries = Registry.getValues(INSTANCE);
+		
 		for (EntityEntry e : entries) {
 			e.register();
 		}

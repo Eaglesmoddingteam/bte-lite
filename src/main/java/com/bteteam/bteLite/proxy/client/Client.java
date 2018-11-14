@@ -12,6 +12,7 @@ import com.bteteam.bteLite.init.items.Items;
 import com.bteteam.bteLite.main.Main;
 import com.bteteam.bteLite.proxy.client.particle.ParticleCauldronFinish;
 import com.bteteam.bteLite.proxy.common.IFunction;
+import com.bteteam.bteLite.proxy.common.IFunction.NoArgs;
 import com.bteteam.bteLite.proxy.common.ISide;
 
 import net.minecraft.block.Block;
@@ -83,6 +84,13 @@ public class Client implements ISide {
 	public void executeSided(IFunction func, Side side, Object... args) {
 		if(side.isClient()) {
 			func.exec(args);
+		}
+	}
+
+	@Override
+	public void executeSided(NoArgs func, Side side) {
+		if(side.isClient()) {
+			func.exec();
 		}
 	}
 }
